@@ -1,5 +1,6 @@
 // import 'dart:math';
 import 'package:action_center_data_app/pages/home_page.dart';
+import 'package:action_center_data_app/pages/main_page.dart';
 import 'package:action_center_data_app/pages/settings.dart';
 import 'package:action_center_data_app/pages/testbar.dart';
 import 'package:action_center_data_app/pages/theme_test.dart';

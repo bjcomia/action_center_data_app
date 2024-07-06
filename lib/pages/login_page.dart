@@ -1,3 +1,4 @@
+import 'package:action_center_data_app/pages/main_page.dart';
 import 'package:action_center_data_app/pages/settings.dart';
 import 'package:flutter/material.dart';
 import 'package:action_center_data_app/pages/home_page.dart';
@@ -217,7 +218,7 @@ class _LoginRealState extends State<LoginReal> {
 
                             Navigator.of(context).push(MaterialPageRoute(
                                 builder: (BuildContext context) {
-                              return const SettingsPage();
+                              return const MainPage();
                             }));
                           }
                         },

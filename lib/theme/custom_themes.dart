@@ -10,7 +10,9 @@ ThemeData lightMode = ThemeData(
     onPrimaryContainer: Color(0xffFFFFFF), //Container Color(search, article container,form fields)
     secondary: Color(0xff000000), //Text
     onSecondaryContainer: Color(0xff828282), //other options(placeholder/unselected/borders of field
-    tertiary: Color(0xffFFFFFF) // Icon    
+    tertiary: Color(0xffFFFFFF), // Icon 
+    shadow: Color.fromARGB(255, 193, 193, 193),
+    tertiaryContainer: Color(0xff970004),
   )
 );
 
@@ -23,6 +25,8 @@ ThemeData darkMode = ThemeData(
     onPrimaryContainer: Color(0xff3A3B3C), //Container color(search, article container,form fields)
     secondary: Color(0xffFFFFFF), //Text
     onSecondaryContainer: Color(0xffE0E0E0), //other options(placeholder/unselected/borders of field
-    tertiary: Color(0xffFFFFFF) // Icon
+    tertiary: Color(0xffFFFFFF), // Icon
+    shadow: Colors.transparent,
+    tertiaryContainer: Color.fromARGB(255, 255, 255, 255),
   )
 );
