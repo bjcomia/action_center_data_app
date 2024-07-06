@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:action_center_data_app/pages/camera.dart';
 import 'package:action_center_data_app/pages/third_page.dart';
-import 'package:flutter/widgets.dart';
 
 class FirstPage extends StatefulWidget {
   const FirstPage({super.key});
@@ -62,16 +61,16 @@ class _FirstPageState extends State<FirstPage> {
               iconColor: Colors.blue,
               hoverColor: Colors.black12,
               enabled: true,
-              leading: Icon(Icons.back_hand),
-              title: Text('HAHAHAH'),
+              leading: const Icon(Icons.back_hand),
+              title: const Text('HAHAHAH'),
               onTap: () {
                 Navigator.pop(context);
               },
             ),
             ListTile(
               enabled: true,
-              leading: Icon(Icons.ac_unit),
-              title: Text('HAHBDFSJAFBK'),
+              leading: const Icon(Icons.ac_unit),
+              title: const Text('HAHBDFSJAFBK'),
               onTap: () {
                 Navigator.pop(context);
               }
@@ -79,7 +78,7 @@ class _FirstPageState extends State<FirstPage> {
           ],
         ),
       ),
-      backgroundColor: Color(0xfff8f8f8),
+      backgroundColor: const Color(0xfff8f8f8),
       floatingActionButton: FloatingActionButton(
         shape: const CircleBorder(),
         elevation: 2.0,

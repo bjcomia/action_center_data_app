@@ -1,7 +1,5 @@
 import 'package:action_center_data_app/pages/main_page.dart';
-import 'package:action_center_data_app/pages/settings.dart';
 import 'package:flutter/material.dart';
-import 'package:action_center_data_app/pages/home_page.dart';
 // import 'package:provider/provider.dart';
 // import '../theme/theme_provider.dart';
 
@@ -213,7 +211,7 @@ class _LoginRealState extends State<LoginReal> {
                         onPressed: () {
                           if (formGlobalKey.currentState!.validate()) {
                             formGlobalKey.currentState!.save();
-                            print('$emailFinal, $passFinal');
+                            // print('$emailFinal, $passFinal');
                             formGlobalKey.currentState!.reset();
 
                             Navigator.of(context).push(MaterialPageRoute(

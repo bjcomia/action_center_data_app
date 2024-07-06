@@ -16,7 +16,7 @@ class _CameraPageState extends State<CameraPage> {
       color: const Color.fromARGB(255, 0, 255, 64),
       onImageCaptured: (value) {
         final path = value.path;
-        print("::::::::::::::::::::::::::::::::: $path");
+        // print("::::::::::::::::::::::::::::::::: $path");
         if (path.contains('.jpg')) {
           showDialog(
               context: context,
@@ -28,8 +28,8 @@ class _CameraPageState extends State<CameraPage> {
         }
       },
       onVideoRecorded: (value) {
-        final path = value.path;
-        print('::::::::::::::::::::::::;; dkdkkd $path');
+        // final path = value.path;
+        // print('::::::::::::::::::::::::;; dkdkkd $path');
         ///Show video preview .mp4
       },
     );

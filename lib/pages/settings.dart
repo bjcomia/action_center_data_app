@@ -43,12 +43,12 @@ class _SettingsPageState extends State<SettingsPage> {
                         Provider.of<ThemeProvider>(context, listen: false)
                             .toggleTheme();
                       },
-                      icon: isOn ? Icon(Icons.toggle_on) : Icon(Icons.toggle_off))
+                      icon: isOn ? const Icon(Icons.toggle_on) : const Icon(Icons.toggle_off))
                 ],
               ),
             ),
             const SizedBox(height: 30),
-            Container(
+            SizedBox(
               width: 380,
               height: 500,
               // decoration: BoxDecoration(color: Colors.green),
@@ -64,7 +64,7 @@ class _SettingsPageState extends State<SettingsPage> {
                   ),
         
                   // const SizedBox(height: 10),
-                  Container(
+                  SizedBox(
                     child: Column(
                       children: [
                         Text(
@@ -92,7 +92,7 @@ class _SettingsPageState extends State<SettingsPage> {
         
                   const SizedBox(height: 30),
         
-                  Container(
+                  SizedBox(
                     child: Column(
                       children: [
                         Text(
@@ -108,7 +108,7 @@ class _SettingsPageState extends State<SettingsPage> {
                           style: TextStyle(
                               color: Theme.of(context).colorScheme.secondary),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 20,
                         ),
                       ],
@@ -131,7 +131,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 borderRadius: BorderRadius.circular(5),
               )),
           onPressed: () {}, //Logout Function
-          child: Text('Log Out'),
+          child: const Text('Log Out'),
         ),
       ),
     );
