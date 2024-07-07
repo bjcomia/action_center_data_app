@@ -18,6 +18,7 @@ class _MainPageState extends State<MainPage> {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.surface,
 
+      //Screens
       body: mainPages[currIndex],
 
       //Incident Report Shortcut

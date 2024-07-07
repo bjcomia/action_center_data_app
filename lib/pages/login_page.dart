@@ -1,7 +1,5 @@
 import 'package:action_center_data_app/pages/main_page.dart';
 import 'package:flutter/material.dart';
-// import 'package:provider/provider.dart';
-// import '../theme/theme_provider.dart';
 
 class LoginReal extends StatefulWidget {
   const LoginReal({super.key});
@@ -21,7 +19,6 @@ class _LoginRealState extends State<LoginReal> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.surface,
-      // resizeToAvoidBottomInset: false,
       body: Center(
         child: SingleChildScrollView(
           reverse: true,
@@ -42,11 +39,11 @@ class _LoginRealState extends State<LoginReal> {
                     Text(
                       'Login',
                       style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: Theme.of(context).colorScheme.secondary),
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 18, color: Theme.of(context).colorScheme.secondary),
                     ),
                     Text(
                       'Enter your BatStateU Information to enter the app',
-                      style: TextStyle(fontSize: 14, color: Theme.of(context).colorScheme.secondary),
+                      style: TextStyle(fontSize: 13, color: Theme.of(context).colorScheme.secondary),
                       textAlign: TextAlign.center,
                     ),
                   ],
@@ -54,14 +51,9 @@ class _LoginRealState extends State<LoginReal> {
               ),
               Container(
                 padding: const EdgeInsets.all(35.0),
-                // decoration: BoxDecoration(
-                //   color: Colors .lightBlue[200]
-                // ),
                 child: Form(
                   key: formGlobalKey,
                   child: Column(
-                    // mainAxisAlignment: MainAxisAlignment.center,
-                    // crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Align(
                         alignment: Alignment.centerLeft,

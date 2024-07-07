@@ -1,7 +1,8 @@
+import 'package:action_center_data_app/pages/article_content_page.dart';
+import 'package:action_center_data_app/pages/article_menu.dart';
 import 'package:action_center_data_app/pages/settings.dart';
 import 'package:avatar_glow/avatar_glow.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_carousel_widget/flutter_carousel_widget.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -12,9 +13,13 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  var items = [Colors.red, Colors.orange, Colors.yellow, Colors.blue];
+  var titles = [
+    "The meaning of TITLE is the distinguishing name",
+    "Grant",
+    "Berlie",
+    "Kris"
+  ];
   var imageNames = ["hahaha", "kanye", "heart", "heart2"];
-  var titles = ["Benedict", "Grant", "Berlie", "Kris"];
   var subTitles = [
     "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vel urna et dui dignissim elementum in id dolor. ",
     "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vel urna et dui dignissim elementum in id dolor. ",
@@ -27,30 +32,29 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Container(
-        padding:
-            const EdgeInsets.only(top: 40, left: 10, right: 10, bottom: 20),
+        padding: const EdgeInsets.only(top: 40, bottom: 20),
         child: Column(
           children: [
             //Search Bar
             GestureDetector(
               child: Container(
+                margin: const EdgeInsets.only(left: 10, right: 10),
                 height: 55,
                 decoration: BoxDecoration(
-                    color: Theme.of(context).colorScheme.onPrimaryContainer,
-                    borderRadius: const BorderRadius.all(
-                      Radius.elliptical(30, 30),
-                    ),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Theme.of(context)
-                            .colorScheme
-                            .shadow
-                            .withOpacity(0.2),
-                        spreadRadius: 0,
-                        blurRadius: 5,
-                        offset: const Offset(2.5, 5),
-                      )
-                    ]),
+                  color: Theme.of(context).colorScheme.onPrimaryContainer,
+                  borderRadius: const BorderRadius.all(
+                    Radius.elliptical(30, 30),
+                  ),
+                  boxShadow: [
+                    BoxShadow(
+                      color:
+                          Theme.of(context).colorScheme.shadow.withOpacity(0.2),
+                      spreadRadius: 0,
+                      blurRadius: 5,
+                      offset: const Offset(2.5, 5),
+                    )
+                  ],
+                ),
                 child: Container(
                   padding: const EdgeInsets.only(left: 15, right: 15),
                   child: Row(
@@ -162,13 +166,14 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ),
                   ),
-                  const SizedBox(height: 25),
+                  const SizedBox(height: 30),
                   Text(
                     "Tap Here to Report an Incident",
                     textAlign: TextAlign.center,
-                    style: GoogleFonts.inter(
+                    style: TextStyle(
+                      height: 1.2,
                       color: Theme.of(context).colorScheme.secondary,
-                      fontSize: 25,
+                      fontSize: 28,
                       fontWeight: FontWeight.w600,
                     ),
                   )
@@ -180,7 +185,8 @@ class _HomeScreenState extends State<HomeScreen> {
             // ),
 
             //Article Title
-            SizedBox(
+            Container(
+              margin: const EdgeInsets.only(left: 10, right: 10),
               height: 50,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -197,7 +203,10 @@ class _HomeScreenState extends State<HomeScreen> {
                       Navigator.of(context).push(
                         MaterialPageRoute(
                           builder: (BuildContext context) {
-                            return const SettingsPage();
+                            return ArticleMenu(
+                                titles: titles,
+                                subTitles: subTitles,
+                                imageNames: imageNames);
                           },
                         ),
                       );
@@ -223,74 +232,92 @@ class _HomeScreenState extends State<HomeScreen> {
               width: double.infinity,
               child: FlutterCarousel(
                 items: [
-                  for (int index = 0; index < items.length; index++)
-                    Stack(children: [
-                      //bg image
-                      Container(
-                        width: double.infinity,
-                        height: 207,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            // color: Colors.transparent,
-                            image: DecorationImage(
-                                image: AssetImage(
-                                    'images/${imageNames[index]}.jpg'),
-                                fit: BoxFit.fill),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Theme.of(context)
-                                    .colorScheme
-                                    .shadow
-                                    .withOpacity(0.5),
-                                spreadRadius: 2,
-                                blurRadius: 3,
-                                offset: const Offset(0, 1),
-                              )
-                            ]),
-                      ),
-                      Container(
-                          height: 207,
-                          // margin: EdgeInsets.only(left: 5, right: 5),
-                          // child: Text("Color # ${index + 1}"),
-                          alignment: Alignment.bottomLeft,
-                          padding: const EdgeInsets.all(15),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            gradient: LinearGradient(
-                              begin: FractionalOffset.topCenter,
-                              end: FractionalOffset.bottomCenter,
-                              stops: const [0.3, 1.0],
-                              colors: [
-                                items[index].withOpacity(0),
-                                Colors.black
-                              ],
-                            ),
+                  for (int index = 0; index < titles.length; index++)
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (BuildContext context) {
+                              return ArticleContent(
+                                  articleTitle: titles[index],
+                                  photoTitle: imageNames[index],
+                                  articleContent: subTitles[index]);
+                            },
                           ),
-                          child: Text.rich(
-                            TextSpan(
-                              children: <TextSpan>[
-                                TextSpan(
-                                  text: "${titles[index]}\n",
-                                  style: TextStyle(
+                        );
+                      },
+                      child: Stack(children: [
+                        //bg image
+                        Container(
+                          width: double.infinity,
+                          height: 207,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(17),
+                              // color: Colors.transparent,
+                              image: DecorationImage(
+                                  image: AssetImage(
+                                      'images/${imageNames[index]}.jpg'),
+                                  fit: BoxFit.fill),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .shadow
+                                      .withOpacity(0.5),
+                                  spreadRadius: 2,
+                                  blurRadius: 3,
+                                  offset: const Offset(0, 1),
+                                )
+                              ]),
+                        ),
+                        Container(
+                            height: 210,
+                            // margin: EdgeInsets.only(left: 5, right: 5),
+                            // child: Text("Color # ${index + 1}"),
+                            alignment: Alignment.bottomLeft,
+                            padding: const EdgeInsets.all(15),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              gradient: LinearGradient(
+                                begin: FractionalOffset.topCenter,
+                                end: FractionalOffset.bottomCenter,
+                                stops: const [0.3, 1.0],
+                                colors: [
+                                  Theme.of(context)
+                                      .colorScheme
+                                      .primary
+                                      .withOpacity(0),
+                                  Colors.black.withOpacity(0.8)
+                                ],
+                              ),
+                            ),
+                            child: Text.rich(
+                              TextSpan(
+                                children: <TextSpan>[
+                                  TextSpan(
+                                    text: "${titles[index]}\n",
+                                    style: TextStyle(
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .tertiary,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 20),
+                                  ),
+                                  TextSpan(
+                                    text: subTitles[index],
+                                    style: TextStyle(
                                       color: Theme.of(context)
                                           .colorScheme
                                           .tertiary,
                                       fontWeight: FontWeight.bold,
-                                      fontSize: 20),
-                                ),
-                                TextSpan(
-                                  text: subTitles[index],
-                                  style: TextStyle(
-                                    color:
-                                        Theme.of(context).colorScheme.tertiary,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 12,
+                                      fontSize: 12,
+                                    ),
                                   ),
-                                ),
-                              ],
-                            ),
-                          )),
-                    ])
+                                ],
+                              ),
+                            )),
+                      ]),
+                    )
                 ],
                 options: CarouselOptions(
                   onPageChanged: (index, reason) {
