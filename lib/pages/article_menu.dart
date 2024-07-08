@@ -1,15 +1,11 @@
 import 'package:action_center_data_app/pages/article_content_page.dart';
+import 'package:action_center_data_app/pages/dummy_data.dart';
 import 'package:flutter/material.dart';
 
 class ArticleMenu extends StatefulWidget {
-  final List<String> titles;
-  final List<String> subTitles;
-  final List<String> imageNames;
-  const ArticleMenu(
-      {super.key,
-      required this.titles,
-      required this.subTitles,
-      required this.imageNames});
+  const ArticleMenu({
+    super.key,
+  });
 
   @override
   State<ArticleMenu> createState() => _ArticleMenuState();
@@ -30,23 +26,24 @@ class _ArticleMenuState extends State<ArticleMenu> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            for (int index = 0; index < widget.titles.length; index++)
+            for (int index = 0; index < tempData.length; index++)
               GestureDetector(
                 onTap: () {
                   Navigator.of(context).push(
                     MaterialPageRoute(
                       builder: (BuildContext context) {
                         return ArticleContent(
-                            articleTitle: widget.titles[index],
-                            photoTitle: widget.imageNames[index],
-                            articleContent: widget.subTitles[index]);
+                            articleTitle: "${tempData[index]["title"]}",
+                            photoTitle: "${tempData[index]["imageUrl"]}",
+                            articleContent: "${tempData[index]["subTitle"]}");
                       },
                     ),
                   );
                 },
                 child: Container(
                   height: 270,
-                  margin: const EdgeInsets.only(top:5, right: 10, left: 10, bottom: 5),
+                  margin: const EdgeInsets.only(
+                      top: 5, right: 10, left: 10, bottom: 5),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(18),
                     color: Theme.of(context).colorScheme.onPrimaryContainer,
@@ -72,7 +69,7 @@ class _ArticleMenuState extends State<ArticleMenu> {
                             ),
                             image: DecorationImage(
                                 image: AssetImage(
-                                    "images/${widget.imageNames[index]}.jpg"),
+                                    "${tempData[index]["imageUrl"]}"),
                                 fit: BoxFit.fill)),
                         width: double.infinity,
                         height: 205,
@@ -81,7 +78,7 @@ class _ArticleMenuState extends State<ArticleMenu> {
                         alignment: Alignment.centerLeft,
                         padding: const EdgeInsets.only(left: 10, right: 10),
                         child: Text(
-                          widget.titles[index],
+                          "${tempData[index]["title"]}",
                           style: TextStyle(
                               color: Theme.of(context).colorScheme.secondary,
                               fontSize: 17,

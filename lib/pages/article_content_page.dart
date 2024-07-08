@@ -41,7 +41,7 @@ class _ArticleContentState extends State<ArticleContent> {
               ],
             ),
             child: Image.asset(
-              "images/${widget.photoTitle}.jpg",
+              widget.photoTitle,
             ),
           ),
 

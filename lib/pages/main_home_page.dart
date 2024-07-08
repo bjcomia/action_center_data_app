@@ -1,5 +1,7 @@
 import 'package:action_center_data_app/pages/article_content_page.dart';
 import 'package:action_center_data_app/pages/article_menu.dart';
+import 'package:action_center_data_app/pages/dummy_data.dart';
+import 'package:action_center_data_app/pages/report_form.dart';
 import 'package:action_center_data_app/pages/settings.dart';
 import 'package:avatar_glow/avatar_glow.dart';
 import 'package:flutter/material.dart';
@@ -13,19 +15,19 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  var titles = [
-    "The meaning of TITLE is the distinguishing name",
-    "Grant",
-    "Berlie",
-    "Kris"
-  ];
-  var imageNames = ["hahaha", "kanye", "heart", "heart2"];
-  var subTitles = [
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vel urna et dui dignissim elementum in id dolor. ",
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vel urna et dui dignissim elementum in id dolor. ",
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vel urna et dui dignissim elementum in id dolor. ",
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vel urna et dui dignissim elementum in id dolor. "
-  ];
+  // var titles = [
+  //   "The meaning of TITLE is the distinguishing name",
+  //   "Grant",
+  //   "Berlie",
+  //   "Kris"
+  // ];
+  // var imageNames = ["hahaha", "kanye", "heart", "heart2"];
+  // var subTitles = [
+  //   "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vel urna et dui dignissim elementum in id dolor. ",
+  //   "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vel urna et dui dignissim elementum in id dolor. ",
+  //   "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vel urna et dui dignissim elementum in id dolor. ",
+  //   "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vel urna et dui dignissim elementum in id dolor. "
+  // ];
   var carouselIndex = 0;
 
   @override
@@ -110,19 +112,8 @@ class _HomeScreenState extends State<HomeScreen> {
               padding: const EdgeInsets.all(20),
               width: double.infinity,
               height: 350,
-              // color: Theme.of(context).colorScheme.onPrimary,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(30),
-                // color: Theme.of(context).colorScheme.onPrimaryContainer,
-                // boxShadow: [
-                //   BoxShadow(
-                //     color:
-                //         Theme.of(context).colorScheme.shadow.withOpacity(0.5),
-                //     offset: const Offset(1, 5),
-                //     blurRadius: 13,
-                //     spreadRadius: 2,
-                //   )
-                // ],
               ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -157,7 +148,15 @@ class _HomeScreenState extends State<HomeScreen> {
                         ],
                       ),
                       child: IconButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (BuildContext context) {
+                                return const ReportForm();
+                              },
+                            ),
+                          );
+                        },
                         icon: const Icon(
                           Icons.crisis_alert,
                           size: 140,
@@ -203,10 +202,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       Navigator.of(context).push(
                         MaterialPageRoute(
                           builder: (BuildContext context) {
-                            return ArticleMenu(
-                                titles: titles,
-                                subTitles: subTitles,
-                                imageNames: imageNames);
+                            return const ArticleMenu();
                           },
                         ),
                       );
@@ -232,16 +228,17 @@ class _HomeScreenState extends State<HomeScreen> {
               width: double.infinity,
               child: FlutterCarousel(
                 items: [
-                  for (int index = 0; index < titles.length; index++)
+                  for (int index = 0; index < tempData.length; index++)
                     GestureDetector(
                       onTap: () {
                         Navigator.of(context).push(
                           MaterialPageRoute(
                             builder: (BuildContext context) {
                               return ArticleContent(
-                                  articleTitle: titles[index],
-                                  photoTitle: imageNames[index],
-                                  articleContent: subTitles[index]);
+                                  articleTitle: "${tempData[index]["title"]}",
+                                  photoTitle: "${tempData[index]["imageUrl"]}",
+                                  articleContent:
+                                      "${tempData[index]["subTitle"]}");
                             },
                           ),
                         );
@@ -256,7 +253,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               // color: Colors.transparent,
                               image: DecorationImage(
                                   image: AssetImage(
-                                      'images/${imageNames[index]}.jpg'),
+                                      '${tempData[index]["imageUrl"]}'),
                                   fit: BoxFit.fill),
                               boxShadow: [
                                 BoxShadow(
@@ -295,7 +292,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               TextSpan(
                                 children: <TextSpan>[
                                   TextSpan(
-                                    text: "${titles[index]}\n",
+                                    text: "${tempData[index]["title"]}\n",
                                     style: TextStyle(
                                         color: Theme.of(context)
                                             .colorScheme
@@ -304,7 +301,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                         fontSize: 20),
                                   ),
                                   TextSpan(
-                                    text: subTitles[index],
+                                    text: "${tempData[index]["subTitle"]}",
                                     style: TextStyle(
                                       color: Theme.of(context)
                                           .colorScheme
