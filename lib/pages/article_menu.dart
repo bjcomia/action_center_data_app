@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 class ArticleMenu extends StatefulWidget {
   const ArticleMenu({
     super.key,
-  });
+});
 
   @override
   State<ArticleMenu> createState() => _ArticleMenuState();

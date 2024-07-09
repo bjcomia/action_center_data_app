@@ -1,6 +1,6 @@
 import 'package:action_center_data_app/pages/main_home_page.dart';
 import 'package:action_center_data_app/pages/main_notification_page.dart';
-import 'package:action_center_data_app/pages/settings.dart';
+import 'package:action_center_data_app/pages/report_form.dart';
 import 'package:flutter/material.dart';
 
 class MainPage extends StatefulWidget {
@@ -43,7 +43,7 @@ class _MainPageState extends State<MainPage> {
             Navigator.of(context).push(
               MaterialPageRoute(
                 builder: (BuildContext context) {
-                  return const SettingsPage(); //CHANGE TO REPORTFORM!
+                  return const ReportForm(); //CHANGE TO REPORTFORM!
                 },
               ),
             );

@@ -15,19 +15,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  // var titles = [
-  //   "The meaning of TITLE is the distinguishing name",
-  //   "Grant",
-  //   "Berlie",
-  //   "Kris"
-  // ];
-  // var imageNames = ["hahaha", "kanye", "heart", "heart2"];
-  // var subTitles = [
-  //   "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vel urna et dui dignissim elementum in id dolor. ",
-  //   "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vel urna et dui dignissim elementum in id dolor. ",
-  //   "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vel urna et dui dignissim elementum in id dolor. ",
-  //   "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vel urna et dui dignissim elementum in id dolor. "
-  // ];
   var carouselIndex = 0;
 
   @override
@@ -179,9 +166,6 @@ class _HomeScreenState extends State<HomeScreen> {
                 ],
               ),
             ),
-            // const SizedBox(
-            //   height: 10,
-            // ),
 
             //Article Title
             Container(

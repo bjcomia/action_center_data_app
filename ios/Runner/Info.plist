@@ -51,5 +51,7 @@
 	<string>To take user profile image</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Used to capture audio for media image picker plugin</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>This app needs access to location when open.</string>	
 </dict>
 </plist>
