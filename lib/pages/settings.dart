@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../theme/theme_provider.dart';
 
 class SettingsPage extends StatefulWidget {
@@ -10,7 +11,30 @@ class SettingsPage extends StatefulWidget {
 }
 
 class _SettingsPageState extends State<SettingsPage> {
-  var isOn = false;
+  bool isOff = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadSettings(); // Load the saved settings when the page is initialized
+  }
+
+  // Load the saved settings
+  void _loadSettings() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(
+      () {
+        isOff = prefs.getBool('isOff') ?? false; // If the value doesn't exist, return false
+      },
+    );
+  }
+
+  // Save the settings
+  void _saveSettings(bool value) async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setBool('isOff', value); // Save the new value
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,105 +43,105 @@ class _SettingsPageState extends State<SettingsPage> {
         centerTitle: true,
         title: const Text('Settings'),
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(left: 20, right: 20),
-              child: Row(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'Enable Dark Mode',
-                    style: TextStyle(
-                        color: Theme.of(context).colorScheme.secondary,
-                        fontSize: 16),
-                  ),
-                  IconButton(
-                      iconSize: 50,
-                      onPressed: () {
-                        setState(() {
-                          isOn = !isOn;
-                        });
-                        Provider.of<ThemeProvider>(context, listen: false)
-                            .toggleTheme();
-                      },
-                      icon: isOn ? const Icon(Icons.toggle_on) : const Icon(Icons.toggle_off))
-                ],
-              ),
-            ),
-            const SizedBox(height: 30),
-            SizedBox(
-              width: 380,
-              height: 500,
-              // decoration: BoxDecoration(color: Colors.green),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                // crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Container(
-                    margin: const EdgeInsets.only(bottom: 30),
-                    width: 120,
-                    height: 120,
-                    child: Image.asset('images/acdaLogo.png'),
-                  ),
-        
-                  // const SizedBox(height: 10),
-                  SizedBox(
-                    child: Column(
-                      children: [
-                        Text(
-                          'BatStateu',
-                          style: TextStyle(
-                              color: Theme.of(context).colorScheme.secondary,
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold),
-                        ),
-                        Text(
-                          'Action Center Data App',
-                          style: TextStyle(
-                              color: Theme.of(context).colorScheme.secondary,
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold),
-                        ),
-                        Text(
-                          'An Incident Reporting App',
-                          style: TextStyle(
-                              color: Theme.of(context).colorScheme.secondary),
-                        ),
-                      ],
+      body: PageStorage(
+        bucket: PageStorageBucket(),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(left: 20, right: 20),
+                child: Row(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Enable Dark Mode',
+                      style: TextStyle(
+                          color: Theme.of(context).colorScheme.secondary,
+                          fontSize: 16),
                     ),
-                  ),
-        
-                  const SizedBox(height: 30),
-        
-                  SizedBox(
-                    child: Column(
-                      children: [
-                        Text(
-                          'Developers',
-                          style: TextStyle(
-                              color: Theme.of(context).colorScheme.secondary,
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold),
-                        ),
-                        Text(
-                          textAlign: TextAlign.center,
-                          'Comia, Benedict John D.\nGarcia, Berlie Jaye T. \nObiedo, Grant Thomas G.',
-                          style: TextStyle(
-                              color: Theme.of(context).colorScheme.secondary),
-                        ),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                      ],
-                    ),
-                  )
-                ],
+                    IconButton(
+                        iconSize: 50,
+                        onPressed: () {
+                          setState(() {
+                            isOff = !isOff; // Toggle the isOff value
+                          });
+                          _saveSettings(isOff); // Save the new state
+                          Provider.of<ThemeProvider>(context, listen: false)
+                              .toggleTheme(); // Toggle the theme
+                        },
+                        icon: isOff
+                            ? const Icon(Icons.toggle_on)
+                            : const Icon(Icons.toggle_off))
+                  ],
+                ),
               ),
-            )
-          ],
+              const SizedBox(height: 30),
+              SizedBox(
+                width: 380,
+                height: 500,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Container(
+                      margin: const EdgeInsets.only(bottom: 30),
+                      width: 120,
+                      height: 120,
+                      child: Image.asset('images/acdaLogo.png'),
+                    ),
+                    SizedBox(
+                      child: Column(
+                        children: [
+                          Text(
+                            'BatStateu',
+                            style: TextStyle(
+                                color: Theme.of(context).colorScheme.secondary,
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold),
+                          ),
+                          Text(
+                            'Action Center Data App',
+                            style: TextStyle(
+                                color: Theme.of(context).colorScheme.secondary,
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold),
+                          ),
+                          Text(
+                            'An Incident Reporting App',
+                            style: TextStyle(
+                                color: Theme.of(context).colorScheme.secondary),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(height: 30),
+                    SizedBox(
+                      child: Column(
+                        children: [
+                          Text(
+                            'Developers',
+                            style: TextStyle(
+                                color: Theme.of(context).colorScheme.secondary,
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold),
+                          ),
+                          Text(
+                            textAlign: TextAlign.center,
+                            'Comia, Benedict John D.\nGarcia, Berlie Jaye T. \nObiedo, Grant Thomas G.',
+                            style: TextStyle(
+                                color: Theme.of(context).colorScheme.secondary),
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                        ],
+                      ),
+                    )
+                  ],
+                ),
+              )
+            ],
+          ),
         ),
       ),
       bottomNavigationBar: Container(
@@ -130,7 +154,7 @@ class _SettingsPageState extends State<SettingsPage> {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(5),
               )),
-          onPressed: () {}, //Logout Function
+          onPressed: () {}, // Logout Function
           child: const Text('Log Out'),
         ),
       ),

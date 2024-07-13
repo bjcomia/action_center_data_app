@@ -17,7 +17,7 @@ class _ReportFormState extends State<ReportForm> {
   @override
   void initState() {
     super.initState();
-    _determinePosition();
+    // _determinePosition();
   }
 
   @override
@@ -27,10 +27,10 @@ class _ReportFormState extends State<ReportForm> {
   }
 
   bool mapControllerInitialized = false;
-  final reportFormGlobalKey = GlobalKey<FormState>();
-  final ImagePicker picker = ImagePicker();
   var currentLatitude = 0.0;
   var currentLongitude = 0.0;
+  final reportFormGlobalKey = GlobalKey<FormState>();
+  final ImagePicker picker = ImagePicker();
   List<File?> mediaTemps = [null, null, null];
   final MapController myMapController = MapController();
 
@@ -76,6 +76,7 @@ class _ReportFormState extends State<ReportForm> {
     }
     
     Position position = await Geolocator.getCurrentPosition(
+        // forceAndroidLocationManager: true,
         desiredAccuracy: LocationAccuracy.high);
     setState(
       () {
@@ -90,25 +91,24 @@ class _ReportFormState extends State<ReportForm> {
       },
     );
 
-    determineLiveLocation();
+    // determineLiveLocation();
   }
 
+  //Get Live Location
   void determineLiveLocation() {
     LocationSettings locationSettings = const LocationSettings(
-      accuracy: LocationAccuracy.high,
-      distanceFilter: 20
-    );
+        accuracy: LocationAccuracy.high, distanceFilter: 20);
     Geolocator.getPositionStream(locationSettings: locationSettings)
         .listen((Position position) {
       setState(() {
         currentLatitude = position.latitude;
         currentLongitude = position.longitude;
-        
+
         print(currentLatitude);
         print(currentLongitude);
         print(mapControllerInitialized);
 
-        if(mapControllerInitialized == true){
+        if (mapControllerInitialized == true) {
           myMapController.move(LatLng(currentLatitude, currentLongitude), 17);
         }
       });
@@ -214,7 +214,12 @@ class _ReportFormState extends State<ReportForm> {
                     decoration: BoxDecoration(
                         color: Theme.of(context).colorScheme.primary),
                     child: currentLatitude == 0.0 && currentLatitude == 0.0
-                        ? const Center(child: CircularProgressIndicator())
+                        ? ElevatedButton(
+                            onPressed: () {
+                              _determinePosition();
+                            },
+                            child: Text("Get Location"))
+                        // const Center(child: CircularProgressIndicator())
                         : FlutterMap(
                             mapController: myMapController,
                             options: MapOptions(

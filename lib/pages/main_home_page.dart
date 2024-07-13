@@ -1,6 +1,6 @@
 import 'package:action_center_data_app/pages/article_content_page.dart';
 import 'package:action_center_data_app/pages/article_menu.dart';
-import 'package:action_center_data_app/pages/dummy_data.dart';
+import 'package:action_center_data_app/tempData/dummy_data.dart';
 import 'package:action_center_data_app/pages/report_form.dart';
 import 'package:action_center_data_app/pages/settings.dart';
 import 'package:avatar_glow/avatar_glow.dart';
