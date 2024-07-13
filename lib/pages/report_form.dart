@@ -74,7 +74,7 @@ class _ReportFormState extends State<ReportForm> {
       return Future.error(
           'Location permissions are permanently denied, we cannot request permissions.');
     }
-    
+
     Position position = await Geolocator.getCurrentPosition(
         // forceAndroidLocationManager: true,
         desiredAccuracy: LocationAccuracy.high);
@@ -223,11 +223,12 @@ class _ReportFormState extends State<ReportForm> {
                         : FlutterMap(
                             mapController: myMapController,
                             options: MapOptions(
-                              initialCenter:
-                                  LatLng(currentLatitude, currentLongitude),
-                              initialZoom: 17,
-                              // how to center marker of to map when postion changed
-                            ),
+                                initialCenter:
+                                    LatLng(currentLatitude, currentLongitude),
+                                initialZoom: 16.5,
+                                interactionOptions: const InteractionOptions(
+                                    flags: InteractiveFlag.none)
+                                ),
                             children: [
                               openStreetMapTileLayer,
                               MarkerLayer(
