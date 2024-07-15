@@ -31,6 +31,7 @@ class _ReportFormState extends State<ReportForm> {
 
   bool mapControllerInitialized = false;
   bool isLoading = false;
+  bool isOthers = false;
   var dropdownValue = incidentTypes.first;
   var currentLatitude = 0.0;
   var currentLongitude = 0.0;
@@ -388,6 +389,11 @@ class _ReportFormState extends State<ReportForm> {
                     setState(
                       () {
                         dropdownValue = value!;
+                        if(value == "Others"){
+                          isOthers = true;
+                        }else{
+                          isOthers = false;
+                        }
                       },
                     );
                   },
@@ -417,7 +423,8 @@ class _ReportFormState extends State<ReportForm> {
                       fontSize: 15),
                 ),
               ),
-
+              
+              isOthers ? Text("Others please specify") : SizedBox(), //Add others option
               //Description of Incident
               Container(
                 padding: const EdgeInsets.all(8),
