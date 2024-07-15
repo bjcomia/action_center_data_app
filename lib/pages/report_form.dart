@@ -1,10 +1,13 @@
 import 'dart:io';
 import 'package:action_center_data_app/pages/main_page.dart';
+import 'package:action_center_data_app/tempData/dummy_data.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
+import 'package:dropdown_button2/dropdown_button2.dart';
 
 class ReportForm extends StatefulWidget {
   const ReportForm({super.key});
@@ -27,6 +30,8 @@ class _ReportFormState extends State<ReportForm> {
   }
 
   bool mapControllerInitialized = false;
+  bool isLoading = false;
+  var dropdownValue = incidentTypes.first;
   var currentLatitude = 0.0;
   var currentLongitude = 0.0;
   final reportFormGlobalKey = GlobalKey<FormState>();
@@ -58,6 +63,9 @@ class _ReportFormState extends State<ReportForm> {
     bool serviceEnabled;
     LocationPermission permission;
 
+    setState(() {
+      isLoading = true;
+    });
     serviceEnabled = await Geolocator.isLocationServiceEnabled();
     if (!serviceEnabled) {
       return Future.error('Location services are disabled.');
@@ -78,18 +86,16 @@ class _ReportFormState extends State<ReportForm> {
     Position position = await Geolocator.getCurrentPosition(
         // forceAndroidLocationManager: true,
         desiredAccuracy: LocationAccuracy.high);
-    setState(
-      () {
-        currentLatitude = position.latitude;
-        currentLongitude = position.longitude;
 
-        print(currentLatitude);
-        print(currentLongitude);
-        print(mapControllerInitialized);
-
-        mapControllerInitialized = true;
-      },
-    );
+    setState(() {
+      currentLatitude = position.latitude;
+      currentLongitude = position.longitude;
+      mapControllerInitialized = true;
+      isLoading = false;
+      print(currentLatitude);
+      print(currentLongitude);
+      print(mapControllerInitialized);
+    });
 
     // determineLiveLocation();
   }
@@ -124,40 +130,148 @@ class _ReportFormState extends State<ReportForm> {
         centerTitle: true,
       ),
       body: SingleChildScrollView(
-        child: Container(
-          padding: const EdgeInsets.all(8),
-          child: Form(
-            key: reportFormGlobalKey,
-            child: Column(
-              children: [
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    'Photos',
-                    style: TextStyle(
-                        fontSize: 17,
-                        fontWeight: FontWeight.bold,
-                        color: Theme.of(context).colorScheme.secondary),
-                  ),
+        child: Form(
+          key: reportFormGlobalKey,
+          child: Column(
+            children: [
+              Container(
+                padding: const EdgeInsets.all(8),
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'Photos',
+                  style: TextStyle(
+                      fontSize: 17,
+                      fontWeight: FontWeight.bold,
+                      color: Theme.of(context).colorScheme.secondary),
                 ),
-                const SizedBox(height: 5),
+              ),
 
-                // Media Picker
-                SizedBox(
-                  height: 250,
-                  child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: mediaTemps.length,
-                    itemBuilder: (context, index) {
-                      return Container(
+              // Media Picker
+              SizedBox(
+                height: 250,
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: mediaTemps.length,
+                  itemBuilder: (context, index) {
+                    return Container(
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                            color: Theme.of(context)
+                                .colorScheme
+                                .onSecondaryContainer),
+                        borderRadius: BorderRadius.circular(20),
+                        color: Theme.of(context).colorScheme.onPrimaryContainer,
+                        boxShadow: [
+                          BoxShadow(
+                            color: Theme.of(context)
+                                .colorScheme
+                                .shadow
+                                .withOpacity(0.4),
+                            offset: const Offset(1, 1),
+                            blurRadius: 3,
+                            spreadRadius: 1,
+                          )
+                        ],
+                      ),
+                      margin: const EdgeInsets.only(
+                          top: 2, left: 8, bottom: 8, right: 4),
+                      width: 250.0,
+                      child: mediaTemps[index] != null
+                          ? ClipRRect(
+                              borderRadius: BorderRadius.circular(20),
+                              child: Image.file(
+                                mediaTemps[index]!,
+                                fit: BoxFit.fill,
+                              ),
+                            )
+                          : IconButton(
+                              icon: Icon(
+                                Icons.add_a_photo,
+                                size: 50,
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .tertiaryContainer,
+                              ),
+                              onPressed: () {
+                                captureMedia(index);
+                              },
+                            ),
+                    );
+                  },
+                ),
+              ),
+
+              //Location
+              Container(
+                padding: const EdgeInsets.all(8),
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'Location',
+                  style: TextStyle(
+                      fontSize: 17,
+                      fontWeight: FontWeight.bold,
+                      color: Theme.of(context).colorScheme.secondary),
+                ),
+              ),
+
+              Container(
+                margin: const EdgeInsets.only(left: 8, right: 8),
+                child: currentLatitude == 0.0 && currentLatitude == 0.0
+                    ? isLoading
+                        ? SizedBox(
+                            height: 80,
+                            width: 80,
+                            child: CircularProgressIndicator(
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .tertiaryContainer,
+                              strokeWidth: 5,
+                            ),
+                          )
+                        : Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              border: Border.all(
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .onSecondaryContainer),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .shadow
+                                      .withOpacity(0.4),
+                                  offset: const Offset(1, 1),
+                                  blurRadius: 3,
+                                  spreadRadius: 1,
+                                )
+                              ],
+                            ),
+                            child: ElevatedButton.icon(
+                              label: const Text("Get Location"),
+                              icon: const Icon(Icons.my_location),
+                              style: ElevatedButton.styleFrom(
+                                  minimumSize: const Size(300, 50),
+                                  foregroundColor: Theme.of(context)
+                                      .colorScheme
+                                      .tertiaryContainer,
+                                  backgroundColor: Theme.of(context)
+                                      .colorScheme
+                                      .onPrimaryContainer,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(10))),
+                              onPressed: () {
+                                _determinePosition();
+                              },
+                            ),
+                          )
+                    : Container(
+                        height: 300,
                         decoration: BoxDecoration(
                           border: Border.all(
                               color: Theme.of(context)
                                   .colorScheme
                                   .onSecondaryContainer),
-                          borderRadius: BorderRadius.circular(20),
-                          color:
-                              Theme.of(context).colorScheme.onPrimaryContainer,
                           boxShadow: [
                             BoxShadow(
                               color: Theme.of(context)
@@ -170,186 +284,232 @@ class _ReportFormState extends State<ReportForm> {
                             )
                           ],
                         ),
-                        margin: const EdgeInsets.all(5),
-                        width: 250.0,
-                        child: mediaTemps[index] != null
-                            ? ClipRRect(
-                                borderRadius: BorderRadius.circular(20),
-                                child: Image.file(
-                                  mediaTemps[index]!,
-                                  fit: BoxFit.fill,
-                                ),
-                              )
-                            : IconButton(
-                                icon: Icon(
-                                  Icons.add_a_photo,
-                                  size: 50,
-                                  color: Theme.of(context)
-                                      .colorScheme
-                                      .tertiaryContainer,
-                                ),
-                                onPressed: () {
-                                  captureMedia(index);
-                                },
-                              ),
-                      );
-                    },
-                  ),
-                ),
-
-                //Location
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    'Location',
-                    style: TextStyle(
-                        fontSize: 17,
-                        fontWeight: FontWeight.bold,
-                        color: Theme.of(context).colorScheme.secondary),
-                  ),
-                ),
-
-                Container(
-                    height: 300,
-                    decoration: BoxDecoration(
-                        color: Theme.of(context).colorScheme.primary),
-                    child: currentLatitude == 0.0 && currentLatitude == 0.0
-                        ? ElevatedButton(
-                            onPressed: () {
-                              _determinePosition();
-                            },
-                            child: Text("Get Location"))
-                        // const Center(child: CircularProgressIndicator())
-                        : FlutterMap(
-                            mapController: myMapController,
-                            options: MapOptions(
-                                initialCenter:
-                                    LatLng(currentLatitude, currentLongitude),
-                                initialZoom: 16.5,
-                                interactionOptions: const InteractionOptions(
-                                    flags: InteractiveFlag.none)
-                                ),
-                            children: [
-                              openStreetMapTileLayer,
-                              MarkerLayer(
+                        child: FlutterMap(
+                          mapController: myMapController,
+                          options: MapOptions(
+                              initialCenter:
+                                  LatLng(currentLatitude, currentLongitude),
+                              initialZoom: 17,
+                              interactionOptions: const InteractionOptions(
+                                  flags: InteractiveFlag.none)),
+                          children: [
+                            openStreetMapTileLayer,
+                            MarkerLayer(
+                              alignment: Alignment.center,
+                              markers: [
+                                Marker(
                                   alignment: Alignment.center,
-                                  markers: [
-                                    Marker(
-                                        alignment: Alignment.center,
-                                        point: LatLng(
-                                            currentLatitude, currentLongitude),
-                                        child: Icon(
-                                          Icons.location_pin,
-                                          size: 50,
-                                          color: Theme.of(context)
-                                              .colorScheme
-                                              .primary,
-                                        ))
-                                  ])
-                            ],
-                          )),
+                                  point:
+                                      LatLng(currentLatitude, currentLongitude),
+                                  child: Icon(
+                                    Icons.location_pin,
+                                    size: 50,
+                                    color:
+                                        Theme.of(context).colorScheme.primary,
+                                  ),
+                                )
+                              ],
+                            )
+                          ],
+                        ),
+                      ),
+              ),
 
-                //Incident Type (Dropdown)
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    'Incident Type',
-                    style: TextStyle(
-                        fontSize: 17,
-                        fontWeight: FontWeight.bold,
-                        color: Theme.of(context).colorScheme.secondary),
-                  ),
+              //Incident Type (Dropdown)
+              Container(
+                padding: const EdgeInsets.all(8),
+                margin: const EdgeInsets.only(top: 13),
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'Incident Type',
+                  style: TextStyle(
+                      fontSize: 17,
+                      fontWeight: FontWeight.bold,
+                      color: Theme.of(context).colorScheme.secondary),
                 ),
+              ),
 
-                //Description of Incident
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    'Description',
-                    style: TextStyle(
-                        fontSize: 17,
-                        fontWeight: FontWeight.bold,
-                        color: Theme.of(context).colorScheme.secondary),
-                  ),
-                ),
-                TextFormField(
-                  autofocus: true,
+              Container(
+                padding: const EdgeInsets.only(left: 8, right: 8),
+                child: DropdownButtonFormField2<String>(
+                  isExpanded: true,
                   decoration: InputDecoration(
+                    contentPadding: const EdgeInsets.symmetric(vertical: 16),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
                     errorBorder: OutlineInputBorder(
                       borderSide: BorderSide(
                           color: Theme.of(context).colorScheme.primary),
-                      borderRadius: BorderRadius.circular(5),
+                      borderRadius: BorderRadius.circular(10),
                     ),
                     focusedErrorBorder: OutlineInputBorder(
                       borderSide: BorderSide(
                           color: Theme.of(context)
                               .colorScheme
                               .onSecondaryContainer),
-                      borderRadius: BorderRadius.circular(5),
+                      borderRadius: BorderRadius.circular(10),
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderSide: BorderSide(
                           color: Theme.of(context).colorScheme.primary),
-                      borderRadius: BorderRadius.circular(5),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                            color: Theme.of(context)
+                                .colorScheme
+                                .onSecondaryContainer),
+                        borderRadius: BorderRadius.circular(10)),
+                    filled: true,
+                    fillColor: Theme.of(context).colorScheme.onPrimary,
+                  ),
+                  hint: Text(
+                    'Select Incident Type',
+                    style: GoogleFonts.poppins(
+                        color:
+                            Theme.of(context).colorScheme.secondaryContainer),
+                  ),
+                  items: incidentTypes
+                      .map((item) => DropdownMenuItem(
+                            value: item,
+                            child: Text(
+                              item,
+                            ),
+                          ))
+                      .toList(),
+                  validator: (value) {
+                    if (value == null) {
+                      return ' Please select an Incident Type';
+                    }
+                    return null;
+                  },
+                  onChanged: (value) {
+                    setState(
+                      () {
+                        dropdownValue = value!;
+                      },
+                    );
+                  },
+                  onSaved: (value) {
+                    dropdownValue = value.toString();
+                  },
+                  buttonStyleData: const ButtonStyleData(
+                    padding: EdgeInsets.only(right: 8),
+                  ),
+                  iconStyleData: IconStyleData(
+                    icon: Icon(
+                      Icons.arrow_drop_down,
+                      color: Theme.of(context).colorScheme.secondary,
+                    ),
+                    iconSize: 24,
+                  ),
+                  dropdownStyleData: DropdownStyleData(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                  ),
+                  menuItemStyleData: const MenuItemStyleData(
+                    padding: EdgeInsets.symmetric(horizontal: 16),
+                  ),
+                  style: GoogleFonts.poppins(
+                      color: Theme.of(context).colorScheme.secondary,
+                      fontSize: 15),
+                ),
+              ),
+
+              //Description of Incident
+              Container(
+                padding: const EdgeInsets.all(8),
+                margin: const EdgeInsets.only(top: 10),
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'Description',
+                  style: TextStyle(
+                      fontSize: 17,
+                      fontWeight: FontWeight.bold,
+                      color: Theme.of(context).colorScheme.secondary),
+                ),
+              ),
+              Container(
+                margin: const EdgeInsets.only(left: 8, right: 8, bottom: 8),
+                child: TextFormField(
+                  maxLines: 4,
+                  decoration: InputDecoration(
+                    errorBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                          color: Theme.of(context).colorScheme.primary),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    focusedErrorBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                          color: Theme.of(context)
+                              .colorScheme
+                              .onSecondaryContainer),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                          color: Theme.of(context).colorScheme.primary),
+                      borderRadius: BorderRadius.circular(10),
                     ),
                     filled: true,
                     fillColor: Theme.of(context).colorScheme.onPrimary,
                     floatingLabelBehavior: FloatingLabelBehavior.never,
                     label: Text(
-                      'Username',
+                      'Brief Description of the Incident',
                       style: TextStyle(
                           color: Theme.of(context)
                               .colorScheme
-                              .onSecondaryContainer),
+                              .onSecondaryContainer,
+                          fontSize: 15),
                     ),
                     enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(
                           color: Theme.of(context)
                               .colorScheme
                               .onSecondaryContainer),
-                      borderRadius: BorderRadius.circular(5),
+                      borderRadius: BorderRadius.circular(10),
                     ),
                   ),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Enter description';
-                    }
-                    return null;
-                  },
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  maxLength: 250,
+                  style: TextStyle(
+                      color: Theme.of(context).colorScheme.secondary,
+                      fontSize: 15),
                   onSaved: (value) {
                     // emailFinal = value!;
                   },
-                  autovalidateMode: AutovalidateMode.onUserInteraction,
-                  style:
-                      TextStyle(color: Theme.of(context).colorScheme.secondary),
                 ),
-                // Submit Button
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                      minimumSize: const Size(200, 40),
-                      foregroundColor: Theme.of(context).colorScheme.tertiary,
-                      backgroundColor: Theme.of(context).colorScheme.primary,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(5),
-                      )),
-                  onPressed: () {
-                    if (reportFormGlobalKey.currentState!.validate()) {
-                      reportFormGlobalKey.currentState!.save();
-                      reportFormGlobalKey.currentState!.reset();
+              ),
 
-                      Navigator.of(context).push(
-                          MaterialPageRoute(builder: (BuildContext context) {
-                        return const MainPage();
-                      }));
-                    }
-                  },
-                  child: const Text(
-                    'Submit',
-                    style: TextStyle(fontSize: 16),
-                  ),
+              // Submit Button
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    minimumSize: const Size(200, 40),
+                    foregroundColor: Theme.of(context).colorScheme.tertiary,
+                    backgroundColor: Theme.of(context).colorScheme.primary,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(5),
+                    )),
+                onPressed: () {
+                  if (reportFormGlobalKey.currentState!.validate()) {
+                    reportFormGlobalKey.currentState!.save();
+                    reportFormGlobalKey.currentState!.reset();
+
+                    Navigator.of(context).push(
+                      MaterialPageRoute(builder: (BuildContext context) {
+                        return const MainPage(); //Submit the Form
+                      }),
+                    );
+                  }
+                },
+                child: const Text(
+                  'Submit',
+                  style: TextStyle(fontSize: 16),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),
