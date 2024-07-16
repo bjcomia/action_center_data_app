@@ -1,16 +1,11 @@
-# action_center_data_app
+# Action Center Data App
 
-A new Flutter project.
+A Flutter application for incident reporting and real-time notification functions for the BatStateU ACTION Center.
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+Make sure that Flutter is set up correctly and that all dependencies for your project are installed by running:
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+```sh
+flutter pub get
+```
