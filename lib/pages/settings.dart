@@ -1,5 +1,8 @@
+import 'package:action_center_data_app/pages/login_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:quickalert/models/quickalert_type.dart';
+import 'package:quickalert/widgets/quickalert_dialog.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../theme/theme_provider.dart';
 
@@ -24,7 +27,8 @@ class _SettingsPageState extends State<SettingsPage> {
     final prefs = await SharedPreferences.getInstance();
     setState(
       () {
-        isOff = prefs.getBool('isOff') ?? false; // If the value doesn't exist, return false
+        isOff = prefs.getBool('isOff') ??
+            false; // If the value doesn't exist, return false
       },
     );
   }
@@ -154,7 +158,25 @@ class _SettingsPageState extends State<SettingsPage> {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(5),
               )),
-          onPressed: () {}, // Logout Function
+          onPressed: () async {
+            await QuickAlert.show(
+              context: context,
+              type: QuickAlertType.confirm,
+              title: "Logout",
+              text: "Are you sure you want to logout?",
+              confirmBtnText: 'Yes',
+              cancelBtnText: 'No',
+              confirmBtnColor: Theme.of(context).colorScheme.primary,
+              backgroundColor: Theme.of(context).colorScheme.onPrimaryContainer,
+              titleColor: Theme.of(context).colorScheme.secondary,
+              textColor: Theme.of(context).colorScheme.secondary,
+              onConfirmBtnTap: () {
+                Navigator.of(context).pushAndRemoveUntil(
+                    MaterialPageRoute(builder: (context) => const LoginReal()),
+                    (Route<dynamic> route) => false);
+              },
+            );
+          }, // Logout Function
           child: const Text('Log Out'),
         ),
       ),
