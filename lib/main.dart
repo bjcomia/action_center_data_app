@@ -5,10 +5,8 @@ import 'package:provider/provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
-  // Initialize the theme provider
   ThemeProvider themeProvider = ThemeProvider();
-  await themeProvider.loadTheme(); // Ensure the theme is loaded before the app runs
+  await themeProvider.loadTheme();
 
   runApp(
     ChangeNotifierProvider(

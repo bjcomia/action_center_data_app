@@ -29,6 +29,8 @@ class _MainPageState extends State<MainPage> {
           type: QuickAlertType.confirm,
           title: "Logout",
           text: "Are you sure you want to logout?",
+          headerBackgroundColor: Theme.of(context).colorScheme.primary,
+          customAsset: 'images/question2.gif',
           confirmBtnText: 'Yes',
           cancelBtnText: 'No',
           confirmBtnColor: Theme.of(context).colorScheme.primary,
@@ -97,7 +99,11 @@ class _MainPageState extends State<MainPage> {
             ),
             BottomNavigationBarItem(
               label: 'Notifications',
-              icon: Icon(Icons.notifications),
+              icon: Badge(
+                isLabelVisible: true,
+                label: Text("3"),
+                child: Icon(Icons.notifications),
+              ),
             ),
           ],
           currentIndex: currIndex,

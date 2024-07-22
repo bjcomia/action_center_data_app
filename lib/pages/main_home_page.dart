@@ -1,5 +1,6 @@
 import 'package:action_center_data_app/pages/article_content_page.dart';
 import 'package:action_center_data_app/pages/article_menu.dart';
+import 'package:action_center_data_app/pages/search_view.dart';
 import 'package:action_center_data_app/tempData/dummy_data.dart';
 import 'package:action_center_data_app/pages/report_form.dart';
 import 'package:action_center_data_app/pages/settings.dart';
@@ -26,6 +27,9 @@ class _HomeScreenState extends State<HomeScreen> {
           children: [
             //Search Bar
             GestureDetector(
+              onTap: () {
+                showSearch(context: context, delegate: CustomSearchDelegate());
+              },
               child: Container(
                 margin: const EdgeInsets.only(left: 10, right: 10),
                 height: 55,

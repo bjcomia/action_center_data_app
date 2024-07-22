@@ -21,7 +21,6 @@ class _ReportFormState extends State<ReportForm> {
   @override
   void initState() {
     super.initState();
-    // _determinePosition();
   }
 
   @override
@@ -135,10 +134,12 @@ class _ReportFormState extends State<ReportForm> {
         }
         await QuickAlert.show(
           context: context,
-          type: QuickAlertType.confirm,
+          type: QuickAlertType.warning,
           headerBackgroundColor: Theme.of(context).colorScheme.primary,
+          customAsset: 'images/question2.gif',
           text: "Your changes will not be saved",
           title: "Warning",
+          showCancelBtn: true,
           confirmBtnText: 'Yes',
           cancelBtnText: 'No',
           confirmBtnColor: Theme.of(context).colorScheme.primary,
@@ -505,6 +506,7 @@ class _ReportFormState extends State<ReportForm> {
                                   borderRadius: BorderRadius.circular(10),
                                 ),
                               ),
+                              autovalidateMode: AutovalidateMode.onUserInteraction,
                               style: TextStyle(
                                   color:
                                       Theme.of(context).colorScheme.secondary,
@@ -621,6 +623,8 @@ class _ReportFormState extends State<ReportForm> {
                       QuickAlert.show(
                         context: context,
                         type: QuickAlertType.confirm,
+                        customAsset: 'images/question2.gif',
+                        headerBackgroundColor: Theme.of(context).colorScheme.primary,
                         title: "Confirmation",
                         text: "Do you want to submit the report?",
                         confirmBtnText: 'Yes',
@@ -640,6 +644,7 @@ class _ReportFormState extends State<ReportForm> {
                               type: QuickAlertType.loading,
                               title: 'Loading',
                               text: 'Sending your data',
+                              customAsset: 'images/loading2.gif',
                               disableBackBtn: true,
                               backgroundColor: Theme.of(context)
                                   .colorScheme
@@ -648,7 +653,7 @@ class _ReportFormState extends State<ReportForm> {
                                   Theme.of(context).colorScheme.secondary,
                               textColor:
                                   Theme.of(context).colorScheme.secondary,
-                              autoCloseDuration: const Duration(seconds: 3));
+                              autoCloseDuration: const Duration(seconds: 5));
 
                           if (!context.mounted) return;
                           await QuickAlert.show(

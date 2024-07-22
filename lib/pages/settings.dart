@@ -164,6 +164,8 @@ class _SettingsPageState extends State<SettingsPage> {
               type: QuickAlertType.confirm,
               title: "Logout",
               text: "Are you sure you want to logout?",
+              headerBackgroundColor: Theme.of(context).colorScheme.primary,
+              customAsset: 'images/question2.gif',
               confirmBtnText: 'Yes',
               cancelBtnText: 'No',
               confirmBtnColor: Theme.of(context).colorScheme.primary,
