@@ -97,7 +97,7 @@ class _SettingsPageState extends State<SettingsPage> {
                       child: Column(
                         children: [
                           Text(
-                            'BatStateu',
+                            'BatStateU',
                             style: TextStyle(
                                 color: Theme.of(context).colorScheme.secondary,
                                 fontSize: 18,
