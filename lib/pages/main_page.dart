@@ -14,7 +14,7 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
-  var mainPages = [const HomeScreen(), const NoticationPage()];
+  var mainPages = [const HomeScreen(), const NotificationPage()];
   var currIndex = 0;
   @override
   Widget build(BuildContext context) {
