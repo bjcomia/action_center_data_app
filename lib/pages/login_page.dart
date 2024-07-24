@@ -31,6 +31,7 @@ class _LoginRealState extends State<LoginReal> {
           headerBackgroundColor: Theme.of(context).colorScheme.primary,
           text: "Do you want to exit?",
           title: "Confirmation",
+          customAsset: 'images/question2.gif',
           confirmBtnText: 'Yes',
           cancelBtnText: 'No',
           confirmBtnColor: Theme.of(context).colorScheme.primary,
