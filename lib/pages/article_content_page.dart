@@ -66,7 +66,7 @@ class ArticleContent extends StatelessWidget {
                     style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                           color: Theme.of(context)
                               .colorScheme
-                              .onSecondaryContainer,
+                              .secondary,
                           height: 1.5,
                         ),textAlign: TextAlign.justify,
                   ),
