@@ -72,7 +72,7 @@ class _MainPageState extends State<MainPage> {
               Navigator.of(context).push(
                 MaterialPageRoute(
                   builder: (BuildContext context) {
-                    return const ReportForm(); //CHANGE TO REPORTFORM!
+                    return const ReportForm();
                   },
                 ),
               );

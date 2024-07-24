@@ -205,7 +205,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             .secondary
                             .withOpacity(0.5),
                       ),
-                    ),
+                    ) ,
                   ),
                 ],
               ),
@@ -235,7 +235,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         //bg image
                         Container(
                           width: double.infinity,
-                          height: 207,
+                          height: 217,
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(17),
                               // color: Colors.transparent,
@@ -256,9 +256,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               ]),
                         ),
                         Container(
-                            height: 210,
-                            // margin: EdgeInsets.only(left: 5, right: 5),
-                            // child: Text("Color # ${index + 1}"),
+                            height: 220,
                             alignment: Alignment.bottomLeft,
                             padding: const EdgeInsets.all(15),
                             decoration: BoxDecoration(
@@ -296,11 +294,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                           .tertiary,
                                       fontWeight: FontWeight.bold,
                                       fontSize: 12,
-                                    ),
+                                    ) ,
                                   ),
                                 ],
                               ),
-                            )),
+                              maxLines: 3,)),
                       ]),
                     )
                 ],

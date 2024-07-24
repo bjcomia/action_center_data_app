@@ -68,7 +68,7 @@ class ArticleContent extends StatelessWidget {
                               .colorScheme
                               .onSecondaryContainer,
                           height: 1.5,
-                        ),
+                        ),textAlign: TextAlign.justify,
                   ),
                 ],
               ),
