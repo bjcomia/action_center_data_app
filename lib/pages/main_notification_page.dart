@@ -13,13 +13,13 @@ class NotificationPage extends StatelessWidget {
         children: [
           Container(
             height: 80,
-            // color: Colors.brown,
             alignment: Alignment.bottomCenter,
             child: Text(
               "Notifications",
               style: TextStyle(
                 color: Theme.of(context).colorScheme.secondary,
                 fontSize: 30,
+                fontWeight: FontWeight.bold
               ),
             ),
           ),

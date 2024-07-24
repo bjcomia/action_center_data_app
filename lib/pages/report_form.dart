@@ -491,7 +491,7 @@ class _ReportFormState extends State<ReportForm> {
                                     Theme.of(context).colorScheme.onPrimary,
                                 floatingLabelBehavior:
                                     FloatingLabelBehavior.never,
-                                labelText: 'E.g. Type 6, Type 7',
+                                labelText: 'E.g. Earthquake Damages, ...',
                                 alignLabelWithHint: true,
                                 labelStyle: TextStyle(
                                     color: Theme.of(context)
@@ -526,6 +526,7 @@ class _ReportFormState extends State<ReportForm> {
                         ),
                       )
                     : const SizedBox(),
+                    
                 //Description of Incident
                 Container(
                   padding: const EdgeInsets.all(8),

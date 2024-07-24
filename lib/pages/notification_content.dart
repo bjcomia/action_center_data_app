@@ -7,12 +7,12 @@ class NotificationContent extends StatelessWidget {
   final Color color;
 
   const NotificationContent({
-    Key? key,
+    super.key,
     required this.title,
     required this.content,
     required this.icon,
     required this.color,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

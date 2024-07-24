@@ -6,11 +6,11 @@ class ArticleContent extends StatelessWidget {
   final String articleContent;
 
   const ArticleContent({
-    Key? key,
+    super.key,
     required this.articleTitle,
     required this.photoTitle,
     required this.articleContent,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +48,7 @@ class ArticleContent extends StatelessWidget {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.all(32.0),
+              padding: const EdgeInsets.all(20.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [

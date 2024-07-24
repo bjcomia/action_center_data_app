@@ -3,7 +3,7 @@ import 'package:action_center_data_app/pages/article_content_page.dart';
 import 'package:action_center_data_app/tempData/dummy_data.dart';
 
 class ArticleMenu extends StatelessWidget {
-  const ArticleMenu({Key? key}) : super(key: key);
+  const ArticleMenu({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -41,12 +41,12 @@ class AnimatedArticleContainer extends StatelessWidget {
   final int index;
 
   const AnimatedArticleContainer({
-    Key? key,
+    super.key,
     required this.title,
     required this.imageUrl,
     required this.content,
     required this.index,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -77,11 +77,11 @@ class ArticleContainer extends StatelessWidget {
   final String content;
 
   const ArticleContainer({
-    Key? key,
+    super.key,
     required this.title,
     required this.imageUrl,
     required this.content,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -100,7 +100,7 @@ class ArticleContainer extends StatelessWidget {
         );
       },
       child: Container(
-        margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+        margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 5),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(18),
           color: Theme.of(context).colorScheme.onPrimaryContainer,
