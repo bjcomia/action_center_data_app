@@ -99,8 +99,6 @@ class _ReportFormState extends State<ReportForm> {
         isLoading = false;
       },
     );
-
-    // determineLiveLocation();
   }
 
   //Get Live Location
@@ -112,10 +110,6 @@ class _ReportFormState extends State<ReportForm> {
       setState(() {
         currentLatitude = position.latitude;
         currentLongitude = position.longitude;
-
-        // print(currentLatitude);
-        // print(currentLongitude);
-        // print(mapControllerInitialized);
 
         if (mapControllerInitialized == true) {
           myMapController.move(LatLng(currentLatitude, currentLongitude), 17);
@@ -671,13 +665,7 @@ class _ReportFormState extends State<ReportForm> {
                             textColor: Theme.of(context).colorScheme.secondary,
                             disableBackBtn: true,
                             onConfirmBtnTap: () {
-                              // reportFormGlobalKey.currentState!.reset();
-
-                              // print(mediaTemps);
-                              // print("$currentLatitude, $currentLongitude");
-                              // print(incidentType);
-                              // print(otherType);
-                              // print(incidentDescription);
+                              reportFormGlobalKey.currentState!.reset();
                               if (!context.mounted) return;
                               Navigator.of(context).pushAndRemoveUntil(
                                   MaterialPageRoute(

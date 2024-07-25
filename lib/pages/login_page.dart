@@ -229,7 +229,6 @@ class _LoginRealState extends State<LoginReal> {
                           onPressed: () {
                             if (formGlobalKey.currentState!.validate()) {
                               formGlobalKey.currentState!.save();
-                              // print('$emailFinal, $passFinal');
                               formGlobalKey.currentState!.reset();
       
                               Navigator.of(context).push(MaterialPageRoute(

@@ -238,7 +238,6 @@ class _HomeScreenState extends State<HomeScreen> {
                           height: 217,
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(17),
-                              // color: Colors.transparent,
                               image: DecorationImage(
                                   image: AssetImage(
                                       '${tempData[index]["imageUrl"]}'),
