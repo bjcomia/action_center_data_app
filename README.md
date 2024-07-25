@@ -32,7 +32,6 @@
         <li><a href="#homepage">Homepage</a></li>
         <li><a href="#report-incident">Report Incident</a></li>
         <li><a href="#notifications">Notifications</a></li>
-        <li><a href="#screenshots">Screenshots</a></li>
       </ul>
     <li><a href="#developers">Developers</a></li>
   </ol>
@@ -99,14 +98,6 @@ This section allows users to report incidents:
 ### Notifications
 
 - Displays all received notifications.
-
-### Screenshots
-
-<!-- Add screenshots here to visually represent each section described above -->
-- [Home](screenshots/home.png)
-- [Report Incident](screenshots/report_incident.png)
-- [Notifications](screenshots/notifications.png)
-- [Settings](screenshots/settings.png)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
