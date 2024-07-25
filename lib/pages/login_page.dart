@@ -2,6 +2,7 @@ import 'package:action_center_data_app/pages/main_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:quickalert/quickalert.dart';
+import 'dart:io' show Platform, exit;
 
 class LoginReal extends StatefulWidget {
   const LoginReal({super.key});
@@ -22,7 +23,7 @@ class _LoginRealState extends State<LoginReal> {
     return PopScope(
       canPop: false,
       onPopInvoked: (didPop) async {
-        if(didPop == true){
+        if (didPop == true) {
           return;
         }
         await QuickAlert.show(
@@ -39,7 +40,11 @@ class _LoginRealState extends State<LoginReal> {
           titleColor: Theme.of(context).colorScheme.secondary,
           textColor: Theme.of(context).colorScheme.secondary,
           onConfirmBtnTap: () {
-            SystemChannels.platform.invokeMethod('SystemNavigator.pop');
+            if (Platform.isAndroid) {
+              SystemNavigator.pop();
+            } else if (Platform.isIOS) {
+              exit(0);
+            }
           },
         );
       },
@@ -64,12 +69,16 @@ class _LoginRealState extends State<LoginReal> {
                     children: [
                       Text(
                         'Login',
-                        style:
-                            TextStyle(fontWeight: FontWeight.bold, fontSize: 18, color: Theme.of(context).colorScheme.secondary),
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18,
+                            color: Theme.of(context).colorScheme.secondary),
                       ),
                       Text(
                         'Enter your BatStateU Information to enter the app',
-                        style: TextStyle(fontSize: 13, color: Theme.of(context).colorScheme.secondary),
+                        style: TextStyle(
+                            fontSize: 13,
+                            color: Theme.of(context).colorScheme.secondary),
                         textAlign: TextAlign.center,
                       ),
                     ],
@@ -86,70 +95,76 @@ class _LoginRealState extends State<LoginReal> {
                           child: Text(
                             'Username',
                             style: TextStyle(
-                                fontSize: 17, fontWeight: FontWeight.bold,
+                                fontSize: 17,
+                                fontWeight: FontWeight.bold,
                                 color: Theme.of(context).colorScheme.secondary),
                           ),
                         ),
                         const SizedBox(height: 5),
                         TextFormField(
-                          autofocus: true,
-                          decoration: InputDecoration(
-                            errorBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                  color: Theme.of(context)
-                                      .colorScheme
-                                      .primary),
-                              borderRadius: BorderRadius.circular(5),
+                            autofocus: true,
+                            decoration: InputDecoration(
+                              errorBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                    color:
+                                        Theme.of(context).colorScheme.primary),
+                                borderRadius: BorderRadius.circular(5),
+                              ),
+                              focusedErrorBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .onSecondaryContainer),
+                                borderRadius: BorderRadius.circular(5),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                    color:
+                                        Theme.of(context).colorScheme.primary),
+                                borderRadius: BorderRadius.circular(5),
+                              ),
+                              filled: true,
+                              fillColor:
+                                  Theme.of(context).colorScheme.onPrimary,
+                              floatingLabelBehavior:
+                                  FloatingLabelBehavior.never,
+                              label: Text(
+                                'Username',
+                                style: TextStyle(
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .onSecondaryContainer),
+                              ),
+                              enabledBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .onSecondaryContainer),
+                                borderRadius: BorderRadius.circular(5),
+                              ),
                             ),
-                            focusedErrorBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                  color: Theme.of(context)
-                                      .colorScheme
-                                      .onSecondaryContainer),
-                              borderRadius: BorderRadius.circular(5),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                  color: Theme.of(context).colorScheme.primary),
-                              borderRadius: BorderRadius.circular(5),
-                            ),
-                            filled: true,
-                            fillColor: Theme.of(context).colorScheme.onPrimary,
-                            floatingLabelBehavior: FloatingLabelBehavior.never,
-                            label: Text(
-                              'Username',
-                              style: TextStyle(
-                                  color: Theme.of(context)
-                                      .colorScheme
-                                      .onSecondaryContainer),
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                  color: Theme.of(context)
-                                      .colorScheme
-                                      .onSecondaryContainer),
-                              borderRadius: BorderRadius.circular(5),
-                            ),
-                          ),
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Enter username';
-                            }
-                            return null;
-                          },
-                          onSaved: (value) {
-                            emailFinal = value!;
-                          },
-                          autovalidateMode: AutovalidateMode.onUserInteraction,
-                          style: TextStyle(color: Theme.of(context).colorScheme.secondary)
-                        ),
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Enter username';
+                              }
+                              return null;
+                            },
+                            onSaved: (value) {
+                              emailFinal = value!;
+                            },
+                            autovalidateMode:
+                                AutovalidateMode.onUserInteraction,
+                            style: TextStyle(
+                                color:
+                                    Theme.of(context).colorScheme.secondary)),
                         const SizedBox(height: 20),
                         Align(
                           alignment: Alignment.centerLeft,
                           child: Text(
                             'Password',
                             style: TextStyle(
-                                fontSize: 17, fontWeight: FontWeight.bold,
+                                fontSize: 17,
+                                fontWeight: FontWeight.bold,
                                 color: Theme.of(context).colorScheme.secondary),
                           ),
                         ),
@@ -159,9 +174,7 @@ class _LoginRealState extends State<LoginReal> {
                           decoration: InputDecoration(
                             errorBorder: OutlineInputBorder(
                               borderSide: BorderSide(
-                                  color: Theme.of(context)
-                                      .colorScheme
-                                      .primary),
+                                  color: Theme.of(context).colorScheme.primary),
                               borderRadius: BorderRadius.circular(5),
                             ),
                             focusedErrorBorder: OutlineInputBorder(
@@ -185,8 +198,16 @@ class _LoginRealState extends State<LoginReal> {
                                   });
                                 },
                                 icon: togglePass
-                                    ? Icon(Icons.visibility, color: Theme.of(context).colorScheme.secondary)
-                                    : Icon(Icons.visibility_off, color: Theme.of(context).colorScheme.secondary,)),
+                                    ? Icon(Icons.visibility,
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .secondary)
+                                    : Icon(
+                                        Icons.visibility_off,
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .secondary,
+                                      )),
                             floatingLabelBehavior: FloatingLabelBehavior.never,
                             label: Text(
                               'Password',
@@ -213,7 +234,8 @@ class _LoginRealState extends State<LoginReal> {
                             passFinal = value!;
                           },
                           autovalidateMode: AutovalidateMode.onUserInteraction,
-                          style: TextStyle(color: Theme.of(context).colorScheme.secondary),
+                          style: TextStyle(
+                              color: Theme.of(context).colorScheme.secondary),
                         ),
                         const SizedBox(height: 30),
                         ElevatedButton(
@@ -230,7 +252,7 @@ class _LoginRealState extends State<LoginReal> {
                             if (formGlobalKey.currentState!.validate()) {
                               formGlobalKey.currentState!.save();
                               formGlobalKey.currentState!.reset();
-      
+
                               Navigator.of(context).push(MaterialPageRoute(
                                   builder: (BuildContext context) {
                                 return const MainPage();
@@ -239,7 +261,8 @@ class _LoginRealState extends State<LoginReal> {
                           },
                           child: const Text(
                             'Login',
-                            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                            style: TextStyle(
+                                fontSize: 16, fontWeight: FontWeight.bold),
                           ),
                         ),
                         const SizedBox(height: 40),
@@ -255,11 +278,13 @@ class _LoginRealState extends State<LoginReal> {
                                   text: 'By clicking login, you agree to our '),
                               TextSpan(
                                   text: 'Terms of Service',
-                                  style: TextStyle(fontWeight: FontWeight.bold)),
+                                  style:
+                                      TextStyle(fontWeight: FontWeight.bold)),
                               TextSpan(text: ' and '),
                               TextSpan(
                                   text: 'Privacy Policy',
-                                  style: TextStyle(fontWeight: FontWeight.bold)),
+                                  style:
+                                      TextStyle(fontWeight: FontWeight.bold)),
                             ],
                           ),
                         ),
